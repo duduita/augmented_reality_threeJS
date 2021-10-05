@@ -371,7 +371,6 @@ function handleMouseDown(event) {
       clearInterval(upIntervalRight);
       break;
     default:
-    // alert('You have a strange Mouse!');
   }
 }
 
