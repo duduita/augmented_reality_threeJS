@@ -6,6 +6,12 @@ var Colors = {
   pink: 0xf5986e,
   brownDark: 0x23190f,
   blue: 0x68c3c0,
+
+  // new airplane
+  StrongBlue: "#14279B",
+  MiddleBlue: "#3D56B2",
+  WeekBlue: "#5C7AEA",
+  gray: "#E6E6E6",
 };
 
 // THREEJS RELATED VARIABLES
@@ -23,7 +29,7 @@ var scene,
 
 var HEIGHT,
   WIDTH,
-  mousePos = { x: 0, y: 0, z: 0};
+  mousePos = { x: 0, y: 0, z: 0 };
 
 //INIT THREE JS, SCREEN AND MOUSE EVENTS
 
@@ -95,9 +101,9 @@ var AirPlane = function () {
   this.mesh.name = "airPlane";
 
   // Create Engine
-  var geomEngine = new THREE.BoxGeometry(20, 50, 50, 1, 1, 1);
+  var geomEngine = new THREE.BoxGeometry(25, 50, 50, 1, 1, 1);
   var matEngine = new THREE.MeshPhongMaterial({
-    color: Colors.white,
+    color: Colors.gray,
     shading: THREE.FlatShading,
   });
   var engine = new THREE.Mesh(geomEngine, matEngine);
@@ -110,7 +116,7 @@ var AirPlane = function () {
 
   var geomTailPlane = new THREE.BoxGeometry(15, 20, 5, 1, 1, 1);
   var matTailPlane = new THREE.MeshPhongMaterial({
-    color: Colors.red,
+    color: Colors.WeekBlue,
     shading: THREE.FlatShading,
   });
   var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
@@ -123,7 +129,7 @@ var AirPlane = function () {
 
   var geomSideWing = new THREE.BoxGeometry(40, 8, 150, 1, 1, 1);
   var matSideWing = new THREE.MeshPhongMaterial({
-    color: Colors.red,
+    color: Colors.WeekBlue,
     shading: THREE.FlatShading,
   });
   var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
@@ -143,6 +149,30 @@ var AirPlane = function () {
   this.propeller.castShadow = true;
   this.propeller.receiveShadow = true;
 
+  // PropellerLeft
+
+  var geomPropellerLeft = new THREE.BoxGeometry(10, 8, 10, 1, 1, 1);
+  var matPropellerLeft = new THREE.MeshPhongMaterial({
+    color: Colors.brown,
+    shading: THREE.FlatShading,
+  });
+  this.propellerLeft = new THREE.Mesh(geomPropellerLeft, matPropellerLeft);
+  this.propellerLeft.castShadow = true;
+  this.propellerLeft.receiveShadow = true;
+
+  // // BladeLeft
+
+  // var geomBladeLeft = new THREE.BoxGeometry(1, 100, 20, 1, 1, 1);
+  // var matBladeLeft = new THREE.MeshPhongMaterial({
+  //   color: Colors.brownDark,
+  //   shading: THREE.FlatShading,
+  // });
+
+  // var bladeLeft = new THREE.Mesh(geomBladeLeft, matBladeLeft);
+  // bladeLeft.position.set(8, 0, 1001);
+  // bladeLeft.castShadow = true;
+  // bladeLeft.receiveShadow = true;
+
   // Blades
 
   var geomBlade = new THREE.BoxGeometry(1, 100, 20, 1, 1, 1);
@@ -156,14 +186,17 @@ var AirPlane = function () {
   blade.castShadow = true;
   blade.receiveShadow = true;
   this.propeller.add(blade);
+  // this.propeller.add(bladeLeft);
   this.propeller.position.set(50, 0, 0);
+  this.propellerLeft.position.set(20, 0, 80);
   this.mesh.add(this.propeller);
+  // this.mesh.add(this.propellerLeft);
 
   // Cockpit
 
-  var geomCockpit = new THREE.BoxGeometry(80, 50, 50, 1, 1, 1);
+  var geomCockpit = new THREE.BoxGeometry(85, 50, 50, 1, 1, 1);
   var matCockpit = new THREE.MeshPhongMaterial({
-    color: Colors.red,
+    color: Colors.MiddleBlue,
     shading: THREE.FlatShading,
   });
 
@@ -487,7 +520,7 @@ function init(event) {
 
 // HANDLE MOUSE EVENTS
 
-var mousePos = { x: 0, y: 0, z: 1};
+var mousePos = { x: 0, y: 0, z: 1 };
 
 function handleMouseMove(event) {
   var tx = -1 + (event.clientX / WIDTH) * 2;
@@ -502,16 +535,20 @@ let downRight = false;
 let upLeft = true;
 let upRight = true;
 function handleMouseUp(event) {
-  if (downLeft){
+  if (downLeft) {
     clearInterval(downIntervalLeft);
     downLeft = false;
-    upIntervalLeft = setInterval(function(){if (mousePos.z > 1) mousePos.z = mousePos.z - 1}, 24);
+    upIntervalLeft = setInterval(function () {
+      if (mousePos.z > 1) mousePos.z = mousePos.z - 1;
+    }, 24);
     upLeft = true;
   }
-  if (downRight){
-    clearInterval(downIntervalRight);  
+  if (downRight) {
+    clearInterval(downIntervalRight);
     downRight = false;
-    upIntervalRight = setInterval(function(){if (mousePos.z < 1) mousePos.z = mousePos.z + 1}, 24);
+    upIntervalRight = setInterval(function () {
+      if (mousePos.z < 1) mousePos.z = mousePos.z + 1;
+    }, 24);
     upRight = true;
   }
   // //onMouseOff = 0;
@@ -520,20 +557,24 @@ function handleMouseUp(event) {
 function handleMouseDown(event) {
   switch (event.which) {
     case 1:
-      downIntervalLeft = setInterval(function(){mousePos.z = mousePos.z+1}, 24);
+      downIntervalLeft = setInterval(function () {
+        mousePos.z = mousePos.z + 1;
+      }, 24);
       downLeft = true;
       clearInterval(upIntervalLeft);
       break;
     case 2:
-        alert('Middle Mouse button pressed.');
-        break;
+      alert("Middle Mouse button pressed.");
+      break;
     case 3:
-      downIntervalRight = setInterval(function(){mousePos.z = mousePos.z-1}, 24);
+      downIntervalRight = setInterval(function () {
+        mousePos.z = mousePos.z - 1;
+      }, 24);
       downRight = true;
-      clearInterval(upIntervalRight);  
+      clearInterval(upIntervalRight);
       break;
     default:
-        // alert('You have a strange Mouse!');
+    // alert('You have a strange Mouse!');
   }
 }
 
@@ -552,6 +593,5 @@ function handleMouseDown(event) {
 //           alert('You have a strange Mouse!');
 //   }
 // });
-
 
 window.addEventListener("load", init, false);
