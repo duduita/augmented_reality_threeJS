@@ -51,7 +51,7 @@ function createScene() {
   scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
   camera.position.x = 0;
   camera.position.z = 200;
-  camera.position.y = 100;
+  camera.position.y = 50;
 
   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(WIDTH, HEIGHT);
@@ -509,7 +509,7 @@ function normalize(v, vmin, vmax, tmin, tmax) {
 }
 
 var isAxisOn = false;
-var worldAxis = new THREE.AxesHelper(100);
+var worldAxis = new THREE.AxesHelper(50);
 function switchAxis() {
   if (!isAxisOn) {
     isAxisOn = true;
