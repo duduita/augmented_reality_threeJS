@@ -49,7 +49,7 @@ function createScene() {
     farPlane
   );
   scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
-  camera.position.x = 0;
+  camera.position.x = 70;
   camera.position.z = 200;
   camera.position.y = 50;
 
