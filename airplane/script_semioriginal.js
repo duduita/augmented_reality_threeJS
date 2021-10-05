@@ -497,25 +497,31 @@ function handleMouseMove(event) {
 }
 
 var interval;
-let leftDown = false;
-let rightDown = false;
-let leftUp = true;
-let rightUp = true;
+let downLeft = false;
+let downRight = false;
+let upLeft = true;
+let upRight = true;
 function handleMouseUp(event) {
-  upIntervalLeft = setInterval(function(){if (mousePos.z > 1) mousePos.z = mousePos.z - 1}, 24);
-  upIntervalRight = setInterval(function(){if (mousePos.z < 1) mousePos.z = mousePos.z + 1}, 24);
+  if (downLeft){
+    clearInterval(downIntervalLeft);
+    downLeft = false;
+    upIntervalLeft = setInterval(function(){if (mousePos.z > 1) mousePos.z = mousePos.z - 1}, 24);
+    upLeft = true;
+  }
+  if (downRight){
+    clearInterval(downIntervalRight);  
+    downRight = false;
+    upIntervalRight = setInterval(function(){if (mousePos.z < 1) mousePos.z = mousePos.z + 1}, 24);
+    upRight = true;
+  }
   // //onMouseOff = 0;
   // //mousePos.z = tz;
-  if (leftDown)
-    clearInterval(downIntervalLeft);
-  if (rightDown)
-    clearInterval(downIntervalRight);  
 }
 function handleMouseDown(event) {
   switch (event.which) {
     case 1:
       downIntervalLeft = setInterval(function(){mousePos.z = mousePos.z+1}, 24);
-      leftDown = true;
+      downLeft = true;
       clearInterval(upIntervalLeft);
       break;
     case 2:
@@ -523,7 +529,7 @@ function handleMouseDown(event) {
         break;
     case 3:
       downIntervalRight = setInterval(function(){mousePos.z = mousePos.z-1}, 24);
-      rightDown = true;
+      downRight = true;
       clearInterval(upIntervalRight);  
       break;
     default:
