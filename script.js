@@ -486,9 +486,6 @@ function updatePlane() {
   airplane.mesh.position.x += (targetX - airplane.mesh.position.x) * 0.1;
   // console.log(airplane.mesh.position.z);
   airplane.mesh.position.z = mousePos.z;
-  var worldAxis = new THREE.AxesHelper(200);
-
-  airplane.mesh.add(worldAxis);
 
   pilot.mesh.position.y = airplane.mesh.position.y + 7;
 
