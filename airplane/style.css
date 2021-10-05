@@ -43,10 +43,18 @@
   overflow: hidden;
 }
 
+#switchAnimation {
+  position: absolute;
+  right: 185px;
+  top: 106px;
+  z-index: 10;
+  overflow: hidden;
+}
+
 #config {
   position: absolute;
   width: 245px;
-  height: 115px;
+  height: 131px;
   right: 0px;
   top: 10px;
   z-index: 10;

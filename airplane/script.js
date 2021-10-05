@@ -523,6 +523,17 @@ function switchAxis() {
   }
 }
 
+isAnimationOn = true;
+function switchAnimation() {
+  if (!isAnimationOn) {
+    isAnimationOn = true;
+    scene.add(airplane.mesh);
+  } else {
+    scene.remove(airplane.mesh);
+    isAnimationOn = false;
+  }
+}
+
 const size = 100000;
 const divisions = 10000;
 const gridHelper = new THREE.GridHelper(size, divisions);
