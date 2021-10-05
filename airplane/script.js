@@ -190,6 +190,7 @@ var AirPlane = function () {
   this.propeller.position.set(50, 0, 0);
   this.propellerLeft.position.set(20, 0, 80);
   this.mesh.add(this.propeller);
+
   // this.mesh.add(this.propellerLeft);
 
   // Cockpit
@@ -483,16 +484,17 @@ function updatePlane() {
   // Move the plane at each frame by adding a fraction of the remaining distance
   airplane.mesh.position.y += (targetY - airplane.mesh.position.y) * 0.1;
   airplane.mesh.position.x += (targetX - airplane.mesh.position.x) * 0.1;
-  console.log(airplane.mesh.position.z);
+  // console.log(airplane.mesh.position.z);
   airplane.mesh.position.z = mousePos.z;
 
   pilot.mesh.position.y = airplane.mesh.position.y + 7;
 
   // Rotate the plane proportionally to the remaining distance
   airplane.mesh.rotation.z = (targetY - airplane.mesh.position.y) * 0.0128;
-  pilot.mesh.rotation.z = airplane.mesh.rotation.z;
+  // pilot.mesh.rotation.z = airplane.mesh.rotation.z;
   airplane.mesh.rotation.x = (airplane.mesh.position.y - targetY) * 0.0064;
-  pilot.mesh.rotation.x = airplane.mesh.rotation.x;
+  // pilot.mesh.rotation.x = airplane.mesh.rotation.x;
+  airplane.mesh.rotation.x = mousePos.z * 0.0064;
 
   airplane.propeller.rotation.x += 0.3;
 }
