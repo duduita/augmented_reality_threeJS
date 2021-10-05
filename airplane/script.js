@@ -38,6 +38,10 @@ function createScene() {
   WIDTH = window.innerWidth;
 
   scene = new THREE.Scene();
+  const size = 100000;
+  const divisions = 10000;
+  const gridHelper = new THREE.GridHelper(size, divisions);
+  scene.add(gridHelper);
   aspectRatio = WIDTH / HEIGHT;
   fieldOfView = 60;
   nearPlane = 1;
@@ -52,6 +56,8 @@ function createScene() {
   camera.position.x = 0;
   camera.position.z = 200;
   camera.position.y = 100;
+  var worldAxis = new THREE.AxesHelper(100);
+  scene.add(worldAxis);
 
   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(WIDTH, HEIGHT);
@@ -486,6 +492,9 @@ function updatePlane() {
   airplane.mesh.position.x += (targetX - airplane.mesh.position.x) * 0.1;
   // console.log(airplane.mesh.position.z);
   airplane.mesh.position.z = mousePos.z;
+  var worldAxis = new THREE.AxesHelper(200);
+
+  airplane.mesh.add(worldAxis);
 
   pilot.mesh.position.y = airplane.mesh.position.y + 7;
 
