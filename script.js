@@ -101,6 +101,7 @@ var AirPlane = function () {
   this.mesh.name = "airPlane";
 
   // Create Engine
+  
   var geomEngine = new THREE.BoxGeometry(25, 50, 50, 1, 1, 1);
   var matEngine = new THREE.MeshPhongMaterial({
     color: Colors.gray,
@@ -160,19 +161,6 @@ var AirPlane = function () {
   this.propellerLeft.castShadow = true;
   this.propellerLeft.receiveShadow = true;
 
-  // // BladeLeft
-
-  // var geomBladeLeft = new THREE.BoxGeometry(1, 100, 20, 1, 1, 1);
-  // var matBladeLeft = new THREE.MeshPhongMaterial({
-  //   color: Colors.brownDark,
-  //   shading: THREE.FlatShading,
-  // });
-
-  // var bladeLeft = new THREE.Mesh(geomBladeLeft, matBladeLeft);
-  // bladeLeft.position.set(8, 0, 1001);
-  // bladeLeft.castShadow = true;
-  // bladeLeft.receiveShadow = true;
-
   // Blades
 
   var geomBlade = new THREE.BoxGeometry(1, 100, 20, 1, 1, 1);
@@ -186,12 +174,9 @@ var AirPlane = function () {
   blade.castShadow = true;
   blade.receiveShadow = true;
   this.propeller.add(blade);
-  // this.propeller.add(bladeLeft);
   this.propeller.position.set(50, 0, 0);
   this.propellerLeft.position.set(20, 0, 80);
   this.mesh.add(this.propeller);
-
-  // this.mesh.add(this.propellerLeft);
 
   // Cockpit
 
@@ -226,14 +211,10 @@ function createPlane() {
   airplane.mesh.scale.set(0.25, 0.25, 0.25);
   airplane.mesh.position.y = 100;
   scene.add(airplane.mesh);
-  // scene.add(pilot.mesh);
 }
 
 function loop() {
   updatePlane();
-  //   sea.moveWaves();
-  //   sea.mesh.rotation.z += 0.005;
-  // sky.mesh.rotation.z += 0.01;
   renderer.render(scene, camera);
   requestAnimationFrame(loop);
 }
@@ -246,14 +227,11 @@ function updatePlane() {
   // Move the plane at each frame by adding a fraction of the remaining distance
   airplane.mesh.position.y += (targetY - airplane.mesh.position.y) * 0.1;
   airplane.mesh.position.x += (targetX - airplane.mesh.position.x) * 0.1;
-  // console.log(airplane.mesh.position.z);
   airplane.mesh.position.z = mousePos.z;
 
   // Rotate the plane proportionally to the remaining distance
   airplane.mesh.rotation.z = (targetY - airplane.mesh.position.y) * 0.0128;
-  // pilot.mesh.rotation.z = airplane.mesh.rotation.z;
   airplane.mesh.rotation.x = (airplane.mesh.position.y - targetY) * 0.0064;
-  // pilot.mesh.rotation.x = airplane.mesh.rotation.x;
   airplane.mesh.rotation.x = mousePos.z * 0.0064;
 
   airplane.propeller.rotation.x += 0.3;
@@ -348,8 +326,6 @@ function handleMouseUp(event) {
     }, 24);
     upRight = true;
   }
-  // //onMouseOff = 0;
-  // //mousePos.z = tz;
 }
 function handleMouseDown(event) {
   switch (event.which) {
