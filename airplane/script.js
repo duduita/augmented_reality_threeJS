@@ -38,10 +38,6 @@ function createScene() {
   WIDTH = window.innerWidth;
 
   scene = new THREE.Scene();
-  const size = 100000;
-  const divisions = 10000;
-  const gridHelper = new THREE.GridHelper(size, divisions);
-  scene.add(gridHelper);
   aspectRatio = WIDTH / HEIGHT;
   fieldOfView = 60;
   nearPlane = 1;
@@ -56,8 +52,6 @@ function createScene() {
   camera.position.x = 0;
   camera.position.z = 200;
   camera.position.y = 100;
-  var worldAxis = new THREE.AxesHelper(100);
-  scene.add(worldAxis);
 
   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
   renderer.setSize(WIDTH, HEIGHT);
@@ -517,6 +511,32 @@ function normalize(v, vmin, vmax, tmin, tmax) {
   return tv;
 }
 
+var isAxisOn = false;
+var worldAxis = new THREE.AxesHelper(100);
+function switchAxis() {
+  if (!isAxisOn) {
+    isAxisOn = true;
+    scene.add(worldAxis);
+  } else {
+    scene.remove(worldAxis);
+    isAxisOn = false;
+  }
+}
+
+const size = 100000;
+const divisions = 10000;
+const gridHelper = new THREE.GridHelper(size, divisions);
+var isGridOn = false;
+function switchGrid() {
+  if (!isGridOn) {
+    isGridOn = true;
+    scene.add(gridHelper);
+  } else {
+    scene.remove(gridHelper);
+    isGridOn = false;
+  }
+}
+
 function init(event) {
   document.addEventListener("mousemove", handleMouseMove, false);
   document.addEventListener("mouseup", handleMouseUp, false);
@@ -588,21 +608,5 @@ function handleMouseDown(event) {
     // alert('You have a strange Mouse!');
   }
 }
-
-// $('#element').mousedown(function(event) {
-//   switch (event.which) {
-//       case 1:
-//           alert('Left Mouse button pressed.');
-//           break;
-//       case 2:
-//           alert('Middle Mouse button pressed.');
-//           break;
-//       case 3:
-//           alert('Right Mouse button pressed.');
-//           break;
-//       default:
-//           alert('You have a strange Mouse!');
-//   }
-// });
 
 window.addEventListener("load", init, false);
